@@ -1,0 +1,24 @@
+<div class="container">
+  <h1>AHORCADO</h1>
+  <form (submit)="verificarLetra()">
+    <div class="form-group">
+      <label for="palabraGuionada">Palabra:</label>
+      <input type="text" id="palabraGuionada" class="form-control" [value]="palabraGuionada.join(' ')" name="palabraGuionada" readonly>
+    </div>
+    <div class="form-group">
+      <label for="letrasUtilizadas">Letras ya utilizadas</label>
+      <input type="text" id="letrasUtilizadas" class="form-control" [value]="letrasUtilizadas.join(' ')" name="letrasUtilizadas" readonly>
+    </div>
+    <div class="form-group">
+      <label for="intentosRestantes">Intentos Restantes</label>
+      <input type="text" id="intentosRestantes" class="form-control" [value]="intentosRestantes" name="intentosRestantes" readonly>
+    </div>
+    <div class="form-group">
+      <label for="letra">Letra:</label>
+      <input type="text" id="letra" minlength="1" maxlength="1"  class="form-control" [(ngModel)]="letraSeleccionada" name="letra" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar Letra</button>
+  </form>
+</div>
+
+  

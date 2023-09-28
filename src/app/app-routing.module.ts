@@ -3,44 +3,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/home/navbar/navbar.component';
-import { BannerComponent } from './components/home/banner/banner.component';
-import { CarrouselJuegosComponent } from './components/home/carrousel-juegos/carrousel-juegos.component';
 import { QuienSoyComponent } from './components/home/quien-soy/quien-soy.component';
+import {JugarComponent  } from './components/home/jugar/jugar.component';
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const routes: Routes = [
   //pathmatch
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta predeterminada
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Ruta predeterminada
   {path: 'home',
-    component: HomeComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'navbar',
-        pathMatch: 'full'
-      },
-      {
-        path: 'navbar',
-        component: NavbarComponent,
-        outlet: 'navbar' // Nombre de salida para NavbarComponent
-      },
-      {
-        path: 'banner',
-        component: BannerComponent,
-        outlet: 'banner' // Nombre de salida para BannerComponent
-      },
-      {
-        path: 'carrousel-juegos',
-        component: CarrouselJuegosComponent,
-        outlet: 'carrousel-juegos' // Nombre de salida para CarrouselJuegosComponent
-      },
-    ]
+    component: HomeComponent
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'quien_soy', component: QuienSoyComponent },
-
-  // Agrega cualquier otra ruta que necesites aquí
+  { path: 'jugar', component: JugarComponent,
+  ...canActivate(()=> redirectUnauthorizedTo(['login']))  },
+  { path: 'quien_soy', component: QuienSoyComponent, 
+  ...canActivate(()=> redirectUnauthorizedTo(['login'])) },
 ];
 
 @NgModule({

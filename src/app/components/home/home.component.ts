@@ -9,7 +9,4 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   constructor(private router: Router) { }
 
-  quiensoy() {
-    this.router.navigateByUrl("quien_soy");
-  }
 }

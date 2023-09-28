@@ -4,10 +4,6 @@
         <div class="col col-xl-10">
           <div class="card h-100 border border-dark border-5" style="border-radius: 1rem;">
             <div class="row g-0">
-              <div class="col-md-4 col-lg-3 d-flex justify-content-center align-items-center">
-                <img src="https://64.media.tumblr.com/23ef3bc2293bdeb3356b2bc2f57c3200/834f8fa7d19a4848-64/s400x600/fb24025b01c6e803f180fe627bb9b2d20b9a1f00.gifv"
-                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; object-fit: cover;" />
-              </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
                     <form>
@@ -18,24 +14,24 @@
                         </div>
       
                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ingresa con tu cuenta</h5>
-      
+       
                         <div class="form-outline mb-4">
-                          <input type="email" id="form2Example17" class="form-control form-control-lg" />
-                          <label class="form-label" for="form2Example17">Email</label>
+                          <input  [(ngModel)]="usuario.email" type="email" id="form2Example17" class="form-control form-control-lg" name="email" [value]="emailAccesoRapido"/>
+                          <label class="form-label" for="form2Example17" >Email</label>
                         </div>
       
                         <div class="form-outline mb-4">
-                          <input type="password" id="form2Example27" class="form-control form-control-lg" />
-                          <label class="form-label" for="form2Example27">Contraseña</label>
+                          <input [(ngModel)]="usuario.password" name="password" type="password" id="form2Example27" class="form-control form-control-lg" [value]="passwordAccesoRapido"/>
+                          <label class="form-label" for="form2Example27" >Contraseña</label>
                         </div>
       
                         <div class="pt-1 mb-4">
                           <button (click)="login()" class="btn btn-dark btn-lg btn-block"  type="button">Ingresar</button>
                         </div>
       
-                        <a class="small text-muted" href="#!">¿Olvidaste tu contraseña?</a>
-                        <p class="mb-5 pb-lg-2" style="color: #393f81;">¿No estas registrado? <a href="#!"
-                            style="color: #393f81;">¡Registrate!</a></p>
+                        <a class="small text-muted" style="cursor: pointer;" (click)="accesoRapido()">Acceso Rapido</a>
+                        <p class="mb-5 pb-lg-2" style="color: #393f81;">¿No estas registrado? <a
+                            style="color: #393f81; cursor: pointer;" (click)="registro()">¡Registrate!</a></p>
                       </form>
                   <!-- Resto del contenido de la tarjeta -->
                 </div>
