@@ -1,0 +1,29 @@
+ <button type="button" class="float btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="verificarAcceso($event)">
+    <img src="assets/chat_icon.png" width="40px" alt="icon:msj">
+  </button>
+
+
+  <ng-container *ngIf="usuarioAutenticado">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Chat</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div *ngFor="let mensaje of mensajes">
+                <app-mensaje [clase]="mensaje.clase" [usuario]="mensaje.usuario" [mensaje]="mensaje.mensaje" [fecha]="mensaje.fecha"></app-mensaje>
+              </div>
+            </div>
+            <form>
+              <div class="modal-footer">
+                <input type="text" placeholder="Mensaje" name="mensaje" id="mensaje" [(ngModel)]="mensaje.mensaje">
+                <button type="button" class="btn btn-primary" (click)="enviarMensaje()">Enviar Mensaje</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</ng-container>
+

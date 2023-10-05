@@ -1,0 +1,31 @@
+<section class="min-vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-7"> 
+        <div class="card h-100 border border-dark border-5" style="border-radius: 1rem;">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+            <span class="h1 fw-bold mb-0">Registrate</span>
+          </div>
+          <div class="card-body p-4 p-lg-5 text-black">
+            <form>
+              <div class="form-outline mb-6">
+                <label class="form-label" for="form2Example17">Email</label>
+                <input [(ngModel)]="usuario.email" type="email" id="form2Example17" class="form-control form-control-lg" name="email" />
+              </div>
+
+              <div class="form-outline mb-6">
+                <label class="form-label" for="form2Example27">Contraseña</label>
+                <input [(ngModel)]="usuario.password" name="password" type="password" id="form2Example27" class="form-control form-control-lg" />
+              </div>
+
+              <div class="pt-1 mb-4">
+                <button type="button" (click)="registro()" class="btn btn-dark btn-lg btn-block">Registrarse</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

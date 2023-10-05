@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h1>AHORCADO</h1>
+    <form>
+      <div class="form-group">
+        <label for="palabraGuionada">Palabra:</label>
+        <input type="text" id="palabraGuionada" class="form-control" [value]="palabraGuionada.join(' ')" name="palabraGuionada" readonly>
+      </div>
+      <div class="form-group">
+        <label for="letrasUtilizadas">Letras ya utilizadas</label>
+        <input type="text" id="letrasUtilizadas" class="form-control" [value]="letrasUtilizadas.join(' ')" name="letrasUtilizadas" readonly>
+      </div>
+      <div class="form-group">
+        <label for="intentosRestantes">Intentos Restantes</label>
+        <input type="text" id="intentosRestantes" class="form-control" [value]="intentosRestantes" name="intentosRestantes" readonly>
+      </div>
+      <!-- <div class="form-group">
+        <label for="letra">Letra:</label>
+        <input type="text" id="letra" maxlength="1"  class="form-control"  name="letra">
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar Letra</button> -->
+      <div class="container d-flex flex-wrap justify-content-center mt-2">
+        <div *ngFor="let letra of abecedario">
+          <app-boton-letra [letra]="letra" (click)="verificarLetra(letra)"></app-boton-letra>
+        </div>
+      </div>
+
+      
+    </form>
+  </div>
+  
+    

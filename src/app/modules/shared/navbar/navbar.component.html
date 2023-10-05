@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light gradient-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="assets/sonic_logo.png" alt="logo" width="100" height="100">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span> 
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="cursor: pointer;" (click)="quiensoy()">¿Quien Soy?</a>
+                </li>
+                <li class="nav-item dropdown"> 
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Juegos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" (click)="irAhorcado()">Ahorcado</a></li>
+                        <li><a class="dropdown-item" href="#">Preguntados</a></li>
+                        <li><a class="dropdown-item" (click)="irMayorMenor()">Mayor o Menor</a></li>
+                        <li><a class="dropdown-item" href="#">Nuevo juego</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a>{{usuarioEmail}}</a>
+                </li>
+            </ul>
+            <ng-container *ngIf="!usuarioAutenticado">
+                <a   class="navbar-brand" style="cursor: pointer;"  (click)="registrarse()">
+                Registrarse
+                 </a>
+            </ng-container>
+            <ng-container *ngIf="!usuarioAutenticado">
+                <a   class="navbar-brand" style="cursor: pointer;"  (click)="login()">
+                    Iniciar Sesion
+                 </a>
+            </ng-container>
+            <ng-container *ngIf="usuarioAutenticado">
+                <a   class="navbar-brand" style="cursor: pointer;"  (click)="cerrarSesion()">
+                    Cerrar Sesion
+                 </a>
+            </ng-container>
+                <!-- <a   class="navbar-brand" style="cursor: pointer;"  (click)="aa()">
+                    probar
+                 </a> -->
+        </div>
+    </div>
+</nav>

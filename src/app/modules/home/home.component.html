@@ -1,0 +1,70 @@
+<header>
+  <app-navbar></app-navbar>
+</header>
+
+<body class="gradient-custom">
+  <div class="container border border-5 rounded shadow-lg p-3 mb-5 rounded">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="d-flex justify-content-center">
+          <p id="titulo_productos" class="h1">Sala de Juegos</p>
+        </div>
+        <p class="text-center">¡Bienvenido a nuestra plataforma de juegos en línea 100% gratis! Disfruta de una amplia
+          variedad de juegos.<br />
+
+          En nuestro sitio, puedes conectar y competir con jugadores de todo el mundo en tiempo real. Forma parte de
+          nuestra comunidad de jugadores a través de nuestro chat integrado, comparti estrategias y hace nuevos amigos.
+          <br />
+          Mantente al tanto de tus logros y resultados gracias a nuestras actualizaciones en tiempo real. ¡Supera
+          desafíos, gana trofeos y mejora tus habilidades mientras compites con rivales de todo el mundo!
+          <br />
+          Regístrate ahora y empeza a jugar. ¡La aventura te espera!
+        </p>
+      </div>
+      <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <!-- Contenido del GIF (40%) -->
+        <!-- <img id="img_home" src="assets/gif_banner.gif" alt="GIF" class="img-fluid"> -->
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <p id="titulo_productos" class="h2">Juegos Disponibles</p>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div style="cursor: pointer;" class="card border border-5 rounded shadow-lg p-3 mb-5 bg-body rounded"
+          (click)="irAhorcado()">
+          <div class="card-body">
+            <h5 class="card-title">Ahorcado</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div style="cursor: pointer;" class="card border border-5 rounded shadow-lg p-3 mb-5 bg-body rounded"
+          (click)="irMayorMenor()">
+          <div class="card-body">
+            <h5 class="card-title">Mayor o Menor</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3"> 
+        <div style="cursor: pointer;" class="card border border-5 rounded shadow-lg p-3 mb-5 bg-body rounded"
+          (click)="irAhorcado()">
+          <div class="card-body">
+            <h5 class="card-title">Preguntados</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div style="cursor: pointer;" class="card border border-5 rounded shadow-lg p-3 mb-5 bg-body rounded"
+          (click)="irAhorcado()">
+          <div class="card-body">
+            <h5 class="card-title">Reacciona!</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-chat></app-chat>
+</body>

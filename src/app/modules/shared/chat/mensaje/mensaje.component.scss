@@ -1,0 +1,22 @@
+/* Estilos personalizados para los mensajes de usuario */
+.user-mensaje {
+	background-color: #007BFF; /* Color de fondo para mensajes del usuario */
+	color: white; /* Color de texto para mensajes del usuario */
+	border-radius: 10px; /* Borde redondeado para mensajes del usuario */
+	padding: 10px; /* Espaciado interno para mensajes del usuario */
+	text-align: end;
+  }
+  
+  /* Estilos personalizados para los mensajes del otro usuario */
+  .otro-user-mensaje {
+	background-color: #28A745; /* Color de fondo para mensajes del otro usuario */
+	color: white; /* Color de texto para mensajes del otro usuario */
+	border-radius: 10px; /* Borde redondeado para mensajes del otro usuario */
+	padding: 10px; /* Espaciado interno para mensajes del otro usuario */
+	text-align: start;
+
+  }
+
+  .message-time{
+	font-size :.75rem;
+  }
