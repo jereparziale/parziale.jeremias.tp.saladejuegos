@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="container border border-5 rounded shadow-lg p-3 mb-5 rounded">
+        <div class="row">
+            <div class="col-md-12">
+                <ng-container *ngIf="!jugando">
+                    <p id="titulo_productos" class="h1 text-center">Preguntados</p>
+                    <p id="titulo_productos" class="h3 text-center">Temas de las preguntas</p>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <div class="col-12 col-lg-4">
+                            <div class="card text-center " style="width: 18rem;">
+                                <img [src]="urlDeportes" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Deportes</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="card text-center" style="width: 18rem;">
+                                <img [src]="urlGeografia" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Geografia</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="card text-center" style="width: 18rem;">
+                                <img [src]="urlCiencia" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ciencia</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                    <a class="btn btn-primary"  (click)="jugar()">Jugar</a>
+
+                      </div>
+                </ng-container>
+            </div>
+        </div>
+        <ng-container *ngIf="jugando">
+            <div id="tablero">
+              <div class="text-center mb-4">
+                <h3 id="pregunta-titulo" class="h3">{{pregunta}}</h3>
+                <img [src]="urlPregunta" alt="Imagen" class="img-chica">
+              </div>
+              <ul id="pregunta-respuestas" class="list-group list-group-flush">
+                <li id="op1" class="list-group-item list-group-item-info list-group-item-action" (click)="verRespuesta(1)">{{op1}}</li>
+                <li id="op2" class="list-group-item list-group-item-info list-group-item-action" (click)="verRespuesta(2)">{{op2}}</li>
+                <li id="op3" class="list-group-item list-group-item-info list-group-item-action" (click)="verRespuesta(3)">{{op3}}</li>
+              </ul>
+            </div>
+          </ng-container>
+          
+
+    </div>
+</div>

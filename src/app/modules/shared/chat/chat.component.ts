@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) {}
   private firestore: Firestore = inject(Firestore);
   public instanciaFirestore = collection(this.firestore, 'mensajes');
+  public queryInstancia:any | undefined;
   public usuarioActual: string = '';
   public usuarioAutenticado: boolean | undefined;
   public mensajes: any[] = [];
@@ -39,20 +40,20 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.usuarioActual = this.UserAuthService.usuarioEmail;
         this.usuarioAutenticado = true;
         this.mensaje.usuario = this.usuarioActual;
+        //EN SERVICIO DE CHAT/FIRESTORE
         const colRef = collection(this.firestore, 'mensajes');
-        const q = query(colRef, orderBy('fecha'));
-        collectionData(q).subscribe((data: any) => {
+        this.queryInstancia = query(colRef, orderBy('fecha', 'desc'), limit(20));
+        collectionData(this.queryInstancia).subscribe((data: any) => {
           this.mensajes = data;
+          this.mensajes = data.reverse();
           this.mensajes.forEach((mensaje: any) => {
             mensaje.fecha = this.formatearFecha(mensaje.fecha.toDate());
-            console.log(mensaje.fecha);
             if (mensaje.usuario === this.usuarioActual) {
               mensaje.clase = 'user-mensaje';
             } else {
               mensaje.clase = 'otro-user-mensaje';
             }
           });
-          console.log(this.mensajes);
         });
       })
       .catch((error) => {
@@ -77,6 +78,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         text: 'El mensaje debe tener al menos 1 caracter',
       });
     }
+    this.mensaje.mensaje = '';
   }
 
   ngOnDestroy(): void {

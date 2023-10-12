@@ -14,6 +14,8 @@ import { environment } from '../environments/environment';
 import { provideFirebaseApp,initializeApp  } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -30,6 +32,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
     AuthModule,
     SharedModule,
     JuegosModule,
+    HttpClientModule,
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),

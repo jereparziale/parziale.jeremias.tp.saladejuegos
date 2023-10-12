@@ -1,37 +1,44 @@
 <app-navbar></app-navbar>
-<section class="min-vh-80 min-w-50 border border-dark border-5" style="border-radius: 1rem;">
-<h1 class="h1 text-center">MAYOR O MENOR</h1>
-<div class="container d-flex justify-content-around" >
-  <div class="mr-3">
-    <div class="card text-white bg-danger mb-3">
-      <div class="card-header text-center">intentos Restantes</div>
-      <div class="card-body">
-        <h5 class="card-title text-center">{{intentosRestantes}}</h5>
+<div class="container">
+  <div class="container border border-5 rounded shadow-lg p-3 mb-5 rounded">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="text-center">
+          <p id="titulo_productos" class="h1">Mayor o Menor</p>
+        </div>
       </div>
-    </div>
-    <div class="card text-white bg-danger mb-3">
-    <div class="card-header text-center">Puntuacion</div>
-      <div class="card-body"> 
-        <h5 class="card-title text-center">{{puntuacion}}</h5>
-      </div>
-    </div>
-    <button type="button" class="btn btn-primary" (click)="verificarMayorMenor(1)">Mayor</button>
-    <button type="button" class="btn btn-primary" (click)="verificarMayorMenor(0)">Menor</button>
-  </div>
-  <div>
-    <div class="card text-white bg-danger mb-3">
-      <div class="card-header text-center">Carta Actual</div>
-      <div class="card-body">
-        <h5 class="card-title text-center">{{cartaActual}}</h5>
-      </div>
-    </div>
-    <div class="card text-white bg-danger mb-3">
-      <div class="card-header text-center">Carta Anterior</div>
-      <div class="card-body">
-        <h5 class="card-title text-center">{{cartaAnterior}}</h5>
+      <div class="container d-flex justify-content-around">
+        <div class="mr-3">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-header text-center">intentos Restantes</div>
+            <div class="card-body">
+              <h5 class="card-title text-center">{{intentosRestantes}}</h5>
+            </div>
+          </div>
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-header text-center">Puntuacion</div>
+            <div class="card-body">
+              <h5 class="card-title text-center">{{puntuacion}}</h5>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" (click)="verificarMayorMenor(1)">Mayor</button>
+          <button type="button" class="btn btn-primary" (click)="verificarMayorMenor(0)">Menor</button>
+        </div>
+        <div>
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-header text-center">Carta Actual</div>
+            <div class="card-body">
+              <h5 class="card-title text-center">{{cartaActual}}</h5>
+            </div>
+          </div>
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-header text-center">Carta Anterior</div>
+            <div class="card-body">
+              <h5 class="card-title text-center">{{cartaAnterior}}</h5>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-</section>

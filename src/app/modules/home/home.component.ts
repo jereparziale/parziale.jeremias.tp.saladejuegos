@@ -11,7 +11,8 @@ import swal from'sweetalert2';
 export class HomeComponent {
   usuarioAutenticado: boolean = false;
 
-  constructor(private UserAuthService:UserAuthService,private router: Router) { }
+  constructor(private UserAuthService:UserAuthService,private router: Router) { 
+  }
 
   ngOnInit(): void {
     this.UserAuthService.estadoLog()
@@ -38,6 +39,28 @@ export class HomeComponent {
   irMayorMenor(){
     if(this.usuarioAutenticado){
       this.router.navigateByUrl("juegos/mayor-menor");
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes estar logeado para jugar'
+      })
+    }
+  }
+  irReacciona(){
+    if(this.usuarioAutenticado){
+      this.router.navigateByUrl("juegos/reacciona");
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes estar logeado para jugar'
+      })
+    }
+  }
+  irPreguntados(){
+    if(this.usuarioAutenticado){
+      this.router.navigateByUrl("juegos/preguntados");
     }else{
       swal.fire({
         icon: 'error',

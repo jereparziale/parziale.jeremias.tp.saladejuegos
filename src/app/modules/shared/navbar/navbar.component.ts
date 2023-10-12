@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
     private UserAuthService: UserAuthService,
     private router: Router
   ) {}
-
+ 
   ngOnInit(): void {
     this.UserAuthService.estadoLog()
       .then(() => {
@@ -66,6 +66,17 @@ export class NavbarComponent implements OnInit {
         title: 'Oops...',
         text: 'Debes estar logeado para jugar',
       });
+    }
+  }
+  irReacciona(){
+    if(this.usuarioAutenticado){
+      this.router.navigateByUrl("juegos/reacciona");
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes estar logeado para jugar'
+      })
     }
   }
 }
