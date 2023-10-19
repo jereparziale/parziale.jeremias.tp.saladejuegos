@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Firestore,addDoc,collection, collectionData } from '@angular/fire/firestore';
-import { UserAuthService } from 'src/app/services/user-auth.service';
+import { UserAuthService } from 'src/app/services/auth/user-auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -39,15 +39,13 @@ export class LoginComponent {
     console.log(this.cargando);
     console.log('Usuario que ingreso:', this.usuario);
     this.UserAuthService.login(this.usuario)
-    .then(res =>{
-      console.log("ingreso exitoso");
+    .then(()=>{
       this.log.usuario=this.usuario.email;
+
       const fechaActual = new Date();
       this.log.fecha_Ingreso = fechaActual.toISOString().slice(0, 10);
-      const instanciaLog = collection(this.firestore, 'logs_login');
-      addDoc(instanciaLog,this.log)
+      this.UserAuthService.guardarLog(this.log)
       .then(()=>{
-        console.log("datos guardados");
         this.router.navigateByUrl("home");
       })
       .catch(error => console.error(error) );

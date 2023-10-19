@@ -1,0 +1,174 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="card p-4 mt-4 border border-dark border-5" style="border-radius: 1rem;">
+    <div class="d-flex align-items-center mb-3 pb-1">
+      <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+      <span class="h1 fw-bold mb-0">Ingresa tu encuesta sobre nuestra app!</span>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="enviarForm()">
+
+      <div class="row">
+        <div class="form-control-group col-5">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input type="text" (blur)="habilitarRequerido('nombre')" class="form-control" id="nombre"
+            formControlName="nombre">
+          <ng-container *ngIf="nombre?.hasError('pattern')">
+            <small class="text-danger">Sólo debe contener solo letras</small>
+          </ng-container>
+          <ng-container *ngIf="form.get('nombre')?.hasError('required')">
+            <small class="text-danger">
+              El nombre es obligatorio.
+            </small>
+          </ng-container>
+        </div>
+        <div class="form-control-group col-5">
+          <label class="form-label" for="apellido">Apellido</label>
+          <input type="text" (blur)="habilitarRequerido('apellido')" class="form-control" id="apellido"
+            formControlName="apellido">
+          <ng-container *ngIf="apellido?.hasError('pattern')">
+            <small class="text-danger">Sólo debe contener solo letras</small>
+          </ng-container>
+          <ng-container *ngIf="form.get('apellido')?.hasError('required')">
+            <small class="text-danger">
+              El apellido es obligatorio.
+            </small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-control-group col-5">
+          <label class="form-label" for="mail">Mail</label>
+          <input type="email" class="form-control" id="mail" formControlName="mail" (blur)="habilitarRequerido('mail')">
+          <ng-container *ngIf="mail?.hasError('mail')">
+            <small class="text-danger">Formato inválido</small>
+          </ng-container>
+          <ng-container *ngIf="form.get('mail')?.hasError('required')">
+            <small class="text-danger">
+              El mail es obligatorio.
+            </small>
+          </ng-container>
+        </div>
+
+        <div class="form-control-group col-5">
+          <label class="form-label" for="edad">Edad</label>
+          <input type="number" class="form-control" id="edad" formControlName="edad"
+            (blur)="habilitarRequerido('edad')">
+          <ng-container *ngIf="edad?.hasError('min')">
+            <small class="text-danger">Debe ser mayor de edad</small>
+          </ng-container>
+          <ng-container *ngIf="form.get('edad')?.hasError('required')">
+            <small class="text-danger">
+              La edad es obligatoria.
+            </small>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="form-control-group col-5">
+        <label class="form-label" for="clave">Telefono</label>
+        <input type="text" class="form-control" id="nroTelefono" formControlName="nroTelefono"
+          (blur)="habilitarRequerido('nroTelefono')">
+        <ng-container *ngIf="nroTelefono?.hasError('maxlength')">
+          <small class="text-danger">
+            La clave debe tener maximo {{nroTelefono?.getError('maxlength').requiredLength}} caracteres
+          </small>
+        </ng-container>
+        <ng-container *ngIf="nroTelefono?.hasError('pattern')">
+          <small class="text-danger">
+            El número de teléfono solo debe contener números.
+          </small>
+        </ng-container>
+
+        <ng-container *ngIf="form.get('telefono')?.hasError('required')">
+          <small class="text-danger">
+            El telefono es obligatorio.
+          </small>
+        </ng-container>
+      </div>
+
+      <div class="row">
+
+        <div class="form-control-group col-5">
+          <label class="form-label" for="experienciaUsuario">Califica la experiencia de usuario:</label>
+
+          <div class="form-check">
+            <input type="radio" class="form-check-input" id="muyDificil" formControlName="experienciaUsuario" value="1">
+            <label class="form-check-label" for="muyDificil">1 - Muy difícil</label>
+          </div>
+
+          <div class="form-check">
+            <input type="radio" class="form-check-input" id="dificil" formControlName="experienciaUsuario" value="2">
+            <label class="form-check-label" for="dificil">2 - Difícil</label>
+          </div>
+
+          <div class="form-check">
+            <input type="radio" class="form-check-input" id="neutral" formControlName="experienciaUsuario" value="3">
+            <label class="form-check-label" for="neutral">3 - Neutral</label>
+          </div>
+
+          <div class="form-check">
+            <input type="radio" class="form-check-input" id="facil" formControlName="experienciaUsuario" value="4">
+            <label class="form-check-label" for="facil">4 - Fácil</label>
+          </div>
+
+          <div class="form-check">
+            <input type="radio" class="form-check-input" id="muyFacil" formControlName="experienciaUsuario" value="5">
+            <label class="form-check-label" for="muyFacil">5 - Muy fácil</label>
+          </div>
+
+          <ng-container *ngIf="form.get('experienciaUsuario')?.hasError('required')">
+            <small class="text-danger">
+              Por favor, selecciona una calificación.
+            </small>
+          </ng-container>
+        </div>
+
+        <div class="form-control-group col-5">
+          <label class="form-label">¿Cuáles fueron tus juegos favoritos de la aplicación?</label>
+          <div>
+            <input type="checkbox" id="ahorcado" formControlName="juegoAhorcado" />
+            <label for="ahorcado">Ahorcado</label>
+          </div>
+          <div>
+            <input type="checkbox" id="mayorMenor" formControlName="juegoMayorMenor" />
+            <label for="mayorMenor">Mayor o Menor</label>
+          </div>
+          <div>
+            <input type="checkbox" id="preguntados" formControlName="juegoPreguntados" />
+            <label for="preguntados">Preguntados</label>
+          </div>
+          <div>
+            <input type="checkbox" id="reacciona" formControlName="juegoReacciona" />
+            <label for="reacciona">Reacciona!</label>
+          </div>
+          <ng-container *ngIf="form.get('juegoAhorcado')?.hasError('required') ||
+                              form.get('juegoMayorMenor')?.hasError('required') ||
+                              form.get('juegoPreguntados')?.hasError('required') ||
+                              form.get('juegoReacciona')?.hasError('required')">
+            <small class="text-danger">Selecciona al menos un juego como favorito.</small>
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-control-group col-5">
+        <label class="form-label" for="recomendacion">Recomendaciones para el futuro de la app:</label>
+        <textarea
+          (blur)="habilitarRequerido('recomendacion')"
+          class="form-control"
+          id="recomendacion"
+          formControlName="recomendacion"
+        ></textarea>
+        <ng-container *ngIf="recomendacion?.hasError('required')">
+          <small class="text-danger">Por favor, ingresa tu respuesta.</small>
+        </ng-container>
+      </div>
+      
+
+
+      <button [disabled]="form.invalid" type="button" (click)="enviarForm()" class="btn btn-primary w-25 mt-4">
+        Enviar
+      </button>
+
+    </form>
+  </div>
+</div>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserAuthService } from 'src/app/services/auth/user-auth.service';
+import { EstadisticasService } from 'src/app/services/firebase/juegos/estadisticas.service';
 
 import swal from 'sweetalert2';
 
@@ -53,6 +55,14 @@ export class AhorcadoComponent implements OnInit {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
   ];
+  private estadisticasService: EstadisticasService = inject(EstadisticasService);
+  private UserAuthService: UserAuthService = inject(UserAuthService);
+  estadistica = {
+    usuario: '',
+    juego: 'ahorcado',
+    resultadoPartida: false,
+    fecha: new Date(), // Definición de fecha como tipo Date
+  };
   constructor() {}
   ngOnInit(): void {
     // Selección aleatoria de palabra en el constructor
@@ -89,8 +99,9 @@ export class AhorcadoComponent implements OnInit {
           this.letrasUtilizadas.push(this.letraSeleccionada);
         }
         this.letraSeleccionada = '';
-        this.verificarGanador();
-        this.declararPerdedor();
+        if(!this.verificarGanador()){
+          this.declararPerdedor();
+        }
       } else {
         swal.fire({
           icon: 'error',
@@ -127,28 +138,15 @@ export class AhorcadoComponent implements OnInit {
 
   private verificarGanador(): boolean {
     if (this.letrasRestantes.length == 0) {
-      if(this.intentosRestantes<2){
-        swal.fire({
-          icon: 'success',
-          title: 'Ganaste en la ultima!',
-          imageUrl: 'assets/ganaste_justo.gif',
-          imageAlt: 'gif',
-          imageHeight: 250,
-        });
-      }else{
-        swal.fire({
-          icon: 'success',
-          title: 'Ganaste, Felicitaciones!',
-          imageUrl: 'assets/ganaste.gif',
-          imageAlt: 'gif',
-          imageHeight: 250,
-        });
-      }
-      this.reiniciarJuego();
+      this.mostrarMensajeGanador();
+      this.reiniciarJuego(true);
       return true;
     }
     return false;
   }
+
+
+
   private declararPerdedor() {
     if (this.intentosRestantes == 0) {
       swal.fire({
@@ -158,10 +156,47 @@ export class AhorcadoComponent implements OnInit {
         imageAlt: 'gif',
         imageHeight: 250,
       });
-      this.reiniciarJuego();
+      this.reiniciarJuego(false);
     }
   }
-  private reiniciarJuego(): any {
+  private reiniciarJuego(partidaGanada:boolean): any {
+
+    this.UserAuthService.estadoLog()
+    .then(() => {
+      this.estadistica.resultadoPartida=partidaGanada;
+       this.estadistica.usuario = this.UserAuthService.usuarioEmail;
+       this.estadisticasService.alta(this.estadistica)
+
+       this.reiniciarVariables();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+  }
+  
+  private mostrarMensajeGanador() {
+    if (this.intentosRestantes < 2) {
+      swal.fire({
+        icon: 'success',
+        title: 'Ganaste en la ultima!',
+        imageUrl: 'assets/ganaste_justo.gif',
+        imageAlt: 'gif',
+        imageHeight: 250,
+      });
+    } else {
+      swal.fire({
+        icon: 'success',
+        title: 'Ganaste, Felicitaciones!',
+        imageUrl: 'assets/ganaste.gif',
+        imageAlt: 'gif',
+        imageHeight: 250,
+      });
+    }
+  }
+
+  private reiniciarVariables() {
     this.palabraSeleccionada =
       this.palabras[Math.floor(Math.random() * this.palabras.length)];
     this.palabraGuionada = this.generarPalabraGuionada(

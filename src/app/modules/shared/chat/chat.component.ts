@@ -1,14 +1,7 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import {
-  Firestore,
-  collection,
-  collectionData,
-  addDoc,
-  orderBy,
-} from '@angular/fire/firestore';
-import { Router } from '@angular/router';
-import { limit, query } from 'firebase/firestore';
-import { UserAuthService } from 'src/app/services/user-auth.service';
+import { addDoc } from '@angular/fire/firestore';
+import { UserAuthService } from 'src/app/services/auth/user-auth.service';
+import { ChatService } from 'src/app/services/firebase/chat/chat.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -19,14 +12,12 @@ import swal from 'sweetalert2';
 export class ChatComponent implements OnInit, OnDestroy {
   constructor(
     private UserAuthService: UserAuthService,
-    private router: Router
+    private ChatService: ChatService
   ) {}
-  private firestore: Firestore = inject(Firestore);
-  public instanciaFirestore = collection(this.firestore, 'mensajes');
-  public queryInstancia:any | undefined;
   public usuarioActual: string = '';
   public usuarioAutenticado: boolean | undefined;
   public mensajes: any[] = [];
+  chatAbierto: boolean = false;
 
   mensaje = {
     usuario: '',
@@ -40,11 +31,10 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.usuarioActual = this.UserAuthService.usuarioEmail;
         this.usuarioAutenticado = true;
         this.mensaje.usuario = this.usuarioActual;
-        //EN SERVICIO DE CHAT/FIRESTORE
-        const colRef = collection(this.firestore, 'mensajes');
-        this.queryInstancia = query(colRef, orderBy('fecha', 'desc'), limit(20));
-        collectionData(this.queryInstancia).subscribe((data: any) => {
+
+        this.ChatService.traerTodos().subscribe((data: any) => {
           this.mensajes = data;
+          console.log(data);
           this.mensajes = data.reverse();
           this.mensajes.forEach((mensaje: any) => {
             mensaje.fecha = this.formatearFecha(mensaje.fecha.toDate());
@@ -62,16 +52,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public enviarMensaje() {
-    if (this.mensaje.mensaje.length>0) {
+    if (this.mensaje.mensaje.length > 0) {
       const fechaActual = new Date();
       this.mensaje.fecha = fechaActual;
-
-      addDoc(this.instanciaFirestore, this.mensaje)
+      this.ChatService.agregarUno(this.mensaje)
         .then(() => {
           console.log('mensaje enviado \n' + this.mensaje);
         })
         .catch((error) => console.error(error));
-    }else{
+
+    } else {
       swal.fire({
         icon: 'error',
         title: 'Oops...',

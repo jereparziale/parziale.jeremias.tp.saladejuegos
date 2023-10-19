@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserAuthService } from 'src/app/services/auth/user-auth.service';
+import { EstadisticasService } from 'src/app/services/firebase/juegos/estadisticas.service';
 import swal from 'sweetalert2';
 
 
@@ -8,6 +10,9 @@ import swal from 'sweetalert2';
   styleUrls: ['./reacciona.component.scss']
 })
 export class ReaccionaComponent implements OnInit{
+  private estadisticasService: EstadisticasService = inject(EstadisticasService);
+  private UserAuthService: UserAuthService = inject(UserAuthService); 
+
   public cuadricula: boolean[][] = [];
   public nivel: number = 1;
   private celdaActiva: { fila: number, columna: number } = { fila: -1, columna: -1 };
@@ -15,6 +20,14 @@ export class ReaccionaComponent implements OnInit{
   private tiempoPorNivel: number = 5; 
   private intervalo: any; 
   public jugando:boolean=false;
+  private partidaGanada:boolean=false;
+
+  estadistica = {
+    usuario: '',
+    juego: 'reacciona',
+    resultadoPartida: false,
+    fecha: new Date(), // Definición de fecha como tipo Date
+  };
 
   ngOnInit() {
     this.inicializarCuadricula();
@@ -37,14 +50,28 @@ export class ReaccionaComponent implements OnInit{
   }
 
   reiniciarJuego() {
-        this.detenerCuentaRegresiva();
-    this.celdaActiva={ fila: -1, columna: -1 };
-    this.tiempoRestante = 5; 
-    this.tiempoPorNivel = 5; 
-    this.nivel = 1; 
-    this.jugando=false;
 
-    this.inicializarCuadricula();
+    this.UserAuthService.estadoLog()
+    .then(() => {
+      this.estadistica.resultadoPartida=this.partidaGanada;
+       this.estadistica.usuario = this.UserAuthService.usuarioEmail;
+       this.estadisticasService.alta(this.estadistica)
+
+       this.detenerCuentaRegresiva();
+       this.celdaActiva={ fila: -1, columna: -1 };
+       this.tiempoRestante = 5; 
+       this.tiempoPorNivel = 5; 
+       this.nivel = 1; 
+       this.jugando=false;
+       this.partidaGanada=false;
+   
+       this.inicializarCuadricula();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    
   }
 
   siguienteNivel() {
@@ -71,6 +98,7 @@ export class ReaccionaComponent implements OnInit{
     this.tiempoPorNivel--;
     this.tiempoRestante=this.tiempoPorNivel;
   if(this.tiempoPorNivel<1){
+    this.partidaGanada=true;
     swal.fire('No hay más Niveles','¡Has ganado!','success');
     this.reiniciarJuego();
   }

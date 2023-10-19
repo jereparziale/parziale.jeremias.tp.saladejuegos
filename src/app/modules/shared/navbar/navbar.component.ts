@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserAuthService } from 'src/app/services/user-auth.service';
+import { UserAuthService } from 'src/app/services/auth/user-auth.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -76,6 +76,39 @@ export class NavbarComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'Debes estar logeado para jugar'
+      })
+    }
+  }
+  encuesta(){
+    if(this.usuarioAutenticado){
+      this.router.navigateByUrl("encuesta");
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes estar logeado para realizar la encuesta'
+      })
+    }
+  }
+  irPreguntados(){
+    if(this.usuarioAutenticado){
+      this.router.navigateByUrl("preguntados");
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes estar logeado para realizar la encuesta'
+      })
+    }
+  }
+  estadisticas(){
+    if(this.usuarioAutenticado){
+      this.router.navigateByUrl("estadisticas");
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes estar logeado para realizar la encuesta'
       })
     }
   }

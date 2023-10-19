@@ -16,6 +16,12 @@
                 <li class="nav-item">
                     <a class="nav-link active" style="cursor: pointer;" (click)="quiensoy()">¿Quien Soy?</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="cursor: pointer;" (click)="encuesta()">Encuesta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="cursor: pointer;" (click)="estadisticas()">Estadisticas</a>
+                </li>
                 <li class="nav-item dropdown"> 
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -23,7 +29,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" (click)="irAhorcado()">Ahorcado</a></li>
-                        <li><a class="dropdown-item" href="#">Preguntados</a></li>
+                        <li><a class="dropdown-item"  (click)="irPreguntados()">Preguntados</a></li>
                         <li><a class="dropdown-item" (click)="irMayorMenor()">Mayor o Menor</a></li>
                         <li><a class="dropdown-item" (click)="irReacciona()">Reacciona</a></li>
                     </ul>

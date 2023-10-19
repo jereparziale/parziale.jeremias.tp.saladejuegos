@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserAuthService } from 'src/app/services/auth/user-auth.service';
+import { EstadisticasService } from 'src/app/services/firebase/juegos/estadisticas.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -7,12 +9,22 @@ import swal from 'sweetalert2';
   styleUrls: ['./mayor-menor.component.scss']
 })
 export class MayorMenorComponent implements OnInit{
+  private estadisticasService: EstadisticasService = inject(EstadisticasService);
+  private UserAuthService: UserAuthService = inject(UserAuthService); 
 
   public cartaActual:number=0;
   public cartaAnterior:number=0;
   public puntuacion:number=0;
   public intentosRestantes:number=12;
   public cartasPosibles:number[]=[1,2,3,4,5,6,7,8,9,10,11,12];
+
+  
+  estadistica = {
+    usuario: '',
+    juego: 'mayor-menor',
+    puntuacion: 0,
+    fecha: new Date(), // Definición de fecha como tipo Date
+  };
 
   ngOnInit(): void {
     this.cartaActual = this.devolverNumAleatorio();
@@ -45,10 +57,23 @@ export class MayorMenorComponent implements OnInit{
   }
 
   private reiniciarJuego(){
-    this.cartaActual = this.devolverNumAleatorio();
-    this.cartaAnterior=0;
-    this.puntuacion=0;
-    this.intentosRestantes=0;
+
+    this.UserAuthService.estadoLog()
+    .then(() => {
+      this.estadistica.puntuacion=this.puntuacion;
+       this.estadistica.usuario = this.UserAuthService.usuarioEmail;
+       this.estadisticasService.alta(this.estadistica)
+
+       this.cartaActual = this.devolverNumAleatorio();
+       this.cartaAnterior=0;
+       this.puntuacion=0;
+       this.intentosRestantes=0;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+   
   }
 
 }

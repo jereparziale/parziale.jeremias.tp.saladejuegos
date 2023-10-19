@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserAuthService } from 'src/app/services/user-auth.service';
+import { UserAuthService } from 'src/app/services/auth/user-auth.service';
 import swal from'sweetalert2';
 
 @Component({
@@ -24,6 +24,8 @@ export class HomeComponent {
         // Manejar el error aquí si ocurre algún problema durante la autenticación
       });
   }
+
+
 
   irAhorcado(){
     if(this.usuarioAutenticado){

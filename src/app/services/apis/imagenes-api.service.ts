@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApiResponse } from './interfaces/api-response';
+import { ApiResponse } from '../interfaces/api-response';
 import { Observable, map } from 'rxjs';
 
 

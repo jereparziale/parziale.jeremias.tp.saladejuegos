@@ -1,7 +1,7 @@
 import { Injectable, inject} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Auth, authState,createUserWithEmailAndPassword,signInWithEmailAndPassword } from '@angular/fire/auth';
-
+import { Firestore, addDoc, collection, collectionData, orderBy, query, where } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -9,6 +9,8 @@ import { Auth, authState,createUserWithEmailAndPassword,signInWithEmailAndPasswo
 })
 export class UserAuthService {
   private auth: Auth = inject(Auth);
+  private firestore: Firestore = inject(Firestore);
+  public instanciaFirestore = collection(this.firestore, 'logs_login');
   usuarioAutenticado: boolean = false;
   usuarioEmail: any = '';
   constructor() {
@@ -39,5 +41,13 @@ export class UserAuthService {
 
   logout() {
     return this.auth.signOut();
+  }
+
+  guardarLog(data:any):Promise<any>{
+    return addDoc(this.instanciaFirestore, data)
+      .then(() => {
+      })
+      .catch((error) => {
+      });
   }
 }
